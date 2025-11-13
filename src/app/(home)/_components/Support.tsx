@@ -36,7 +36,7 @@ export const SupportSection = () => {
                 </div>
                 <div className="absolute lg:top-[65px] top-[55px] left-[50%] -translate-x-[50%] z-50 w-[60%] px-2">
                   <button
-                    className="rounded-[10px] border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
+                    className="rounded-default border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
                     onClick={() => alert("Windows Version Download")}>
                     <div className="flex items-center gap-4">
                       <AiFillWindows size={34} className="hidden lg:block" />
@@ -47,7 +47,7 @@ export const SupportSection = () => {
                     <AiOutlineDownload size={18} className="block lg:hidden" />
                   </button>
                   <button
-                    className="rounded-[10px] lg:mt-4 mt-2 border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
+                    className="rounded-default lg:mt-4 mt-2 border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
                     onClick={() => alert("MacOS Version Download")}>
                     <div className="flex items-center gap-[14px]">
                       <AiFillApple size={36} className="hidden lg:block" />
@@ -58,7 +58,7 @@ export const SupportSection = () => {
                     <AiOutlineDownload size={18} className="block lg:hidden" />
                   </button>
                   <button
-                    className="rounded-[10px] lg:mt-4 mt-2 border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
+                    className="rounded-default lg:mt-4 mt-2 border border-dark lg:py-1.5 py-0.5 px-3 flex justify-between items-center cursor-pointer w-full"
                     onClick={() => alert("Linux Version Download")}>
                     <div className="flex items-center gap-4">
                       <DiLinux size={34} className="hidden lg:block" />

@@ -33,9 +33,9 @@ export const HeroSection = () => {
             <Link href="https://dashboard.grownext.app/register">
               <Button>Start For Free</Button>
             </Link>
-            <button className="rounded-[32px] px-[1.5rem] py-[0.75rem] border border-primary">
-              Schedule a Demo
-            </button>
+            <Link href="https://dashboard.grownext.app/register">
+              <Button size="outline"> Schedule a Demo</Button>
+            </Link>
           </div>
         </div>
         <div className="relative flex">

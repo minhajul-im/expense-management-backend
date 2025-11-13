@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ContentLayout } from "@/components/common/common";
+import { Button } from "@/components/ui/button";
 
 export const PlanSection = () => {
   return (
@@ -259,9 +260,7 @@ export const PlanSection = () => {
                 for 10 users billed yearly
               </div>
             </div>
-            <button className="text-lg leading-[120%] px-[1rem] py-[0.5rem] rounded-[32px] text-light bg-gradient-to-b from-mild to-dark">
-              Try GrowNext
-            </button>
+            <Button size="sm">Try GrowNext</Button>
           </div>
         </div>
       </div>

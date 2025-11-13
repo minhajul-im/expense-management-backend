@@ -6,6 +6,7 @@ import { useState } from "react";
 import { UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ContentLayout } from "@/components/common/common";
+import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -27,7 +28,7 @@ export const Header = () => {
 
   return (
     <header className="fixed w-full top-[15px] z-[9999]">
-      <ContentLayout className="bg-light shadow rounded-[25px] md:rounded-[60px] py-1 border">
+      <ContentLayout className="bg-light shadow rounded-default py-1 border">
         <div className="nav-center mx-3">
           <div className="flex gap-10">
             <Link href="/">
@@ -64,9 +65,7 @@ export const Header = () => {
               </button>
             </Link>
             <Link href="https://dashboard.grownext.app/register">
-              <button className="rounded-[32px] px-[1rem] py-[0.5rem] bg-gradient-to-b from-mild to-dark text-light">
-                Start For Free
-              </button>
+              <Button size="md">Start For Free</Button>
             </Link>
           </div>
           <button
@@ -113,10 +112,10 @@ export const Header = () => {
                 </Link>
               ))}
             </div>
-            <Link href="https://dashboard.grownext.app/register">
-              <button className="sm:ms-auto rounded-[32px] px-[20px] py-3 m-3 bg-gradient-to-b from-secondary to-primary text-light">
-                Start For Free
-              </button>
+            <Link
+              href="https://dashboard.grownext.app/register"
+              className="p-3 w-full">
+              <Button className="w-full">Start For Free</Button>
             </Link>
           </div>
         </div>
