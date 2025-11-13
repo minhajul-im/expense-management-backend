@@ -36,7 +36,11 @@ export const FeatureDropdown = ({
             <div className="text-[20px] font-semibold">Collaboration</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
-            <ChevronRight className="m-auto rotate-90" />
+            <ChevronRight
+              className={`m-auto transition-transform duration-300 ease-in-out ${
+                submenu === 1 ? "rotate-90" : "rotate-0"
+              }`}
+            />
           </div>
         </button>
         {submenu == 1 && (
@@ -66,7 +70,11 @@ export const FeatureDropdown = ({
             <div className="text-[20px] font-semibold">Task & Projects</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
-            <ChevronRight className="m-auto " />
+            <ChevronRight
+              className={`m-auto transition-transform duration-300 ease-in-out ${
+                submenu === 2 ? "rotate-90" : "rotate-0"
+              }`}
+            />
           </div>
         </button>
         {submenu == 2 && (
@@ -96,7 +104,11 @@ export const FeatureDropdown = ({
             <div className="text-[20px] font-semibold">Sites & Stores</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
-            <ChevronRight className="m-auto " />
+            <ChevronRight
+              className={`m-auto transition-transform duration-300 ease-in-out ${
+                submenu === 3 ? "rotate-90" : "rotate-0"
+              }`}
+            />
           </div>
         </button>
         {submenu == 3 && (
@@ -121,7 +133,11 @@ export const FeatureDropdown = ({
             <div className="text-[20px] font-semibold">HR & Automation</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
-            <ChevronRight className="m-auto " />
+            <ChevronRight
+              className={`m-auto transition-transform duration-300 ease-in-out ${
+                submenu === 4 ? "rotate-90" : "rotate-0"
+              }`}
+            />
           </div>
         </button>
         {submenu == 4 && (
@@ -146,7 +162,11 @@ export const FeatureDropdown = ({
             <div className="text-[20px] font-semibold">CMS</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
-            <ChevronRight className="m-auto " />
+            <ChevronRight
+              className={`m-auto transition-transform duration-300 ease-in-out ${
+                submenu === 5 ? "rotate-90" : "rotate-0"
+              }`}
+            />
           </div>
         </button>
         {submenu == 5 && (

@@ -7,10 +7,13 @@ const config: Config = {
       colors: {
         primary: "var(--primary-color)",
         "primary-foreground": "var(--primary-foreground)",
+        mild: "var(--mild-color)",
         border: "var(--border-color)",
         secondary: "var(--secondary-color)",
         paragraph: "var(--paragraph-color)",
         social: "var(--social-color)",
+        dark: "var(--dark-color)",
+        "dark-foreground": "var(--dark-foreground)",
       },
       borderRadius: {
         default: "var(--border-radius)",

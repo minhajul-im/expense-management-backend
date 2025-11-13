@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseLayout } from "@/layout";
-
+import { HeroSection } from "./_components/Hero";
 import { FeaturesSection } from "./_components/Features";
-import { HeroSection } from "./_components/hero";
+import { AdvantageSection } from "./_components/Advantage";
 
 export default function HomePage() {
   return (
@@ -10,7 +10,7 @@ export default function HomePage() {
       <section className="flex flex-col mt-[60px] gap-y-[4.5rem]">
         <HeroSection />
         <FeaturesSection />
-        <HeroSection />
+        <AdvantageSection />
       </section>
     </BaseLayout>
   );
