@@ -4,7 +4,7 @@ import Image from "next/image";
 export const LevelUpSection = () => {
   return (
     <div
-      className="py-[30px] mt-[70px]"
+      className="py-8"
       style={{
         background:
           "linear-gradient(182.2deg, #FFFFFF 1.9%, #F4F4F4 16.34%, #F4F4F4 50.05%, #F4F4F4 83.75%, #FFFFFF 98.2%)",

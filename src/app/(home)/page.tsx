@@ -7,11 +7,12 @@ import { LevelUpSection } from "./_components/LevelUp";
 import { PlanSection } from "./_components/Plan";
 import { SupportSection } from "./_components/Support";
 import { TestimonialsSection } from "./_components/Testimonials";
+import { TailoredSection } from "./_components/Tailored";
 
 export default function HomePage() {
   return (
     <BaseLayout>
-      <section className="flex flex-col mt-[60px] gap-y-[4.5rem]">
+      <section className="flex flex-col gap-y-[4.5rem]">
         <HeroSection />
         <FeaturesSection />
         <AdvantageSection />
@@ -19,6 +20,7 @@ export default function HomePage() {
         <PlanSection />
         <SupportSection />
         <TestimonialsSection />
+        <TailoredSection />
       </section>
     </BaseLayout>
   );
