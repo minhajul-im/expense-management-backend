@@ -199,7 +199,7 @@ const Section = ({
   );
 };
 
-export const Divider = () => {
+const Divider = () => {
   return (
     <div className="flex items-center my-5 md:my-6 lg:my-[50px]">
       <div className="h-[1px] w-full flex-1 bg-gradient-to-l from-dark to-light"></div>
