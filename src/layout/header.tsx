@@ -27,7 +27,7 @@ export const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-[15px] ">
+    <header className="fixed w-full top-[15px] z-[9999]">
       <ContentLayout
         childClass="py-2"
         className="rounded-default shadow-lg bg-header">
