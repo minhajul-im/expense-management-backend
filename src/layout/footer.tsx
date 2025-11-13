@@ -232,32 +232,32 @@ const Section = ({
   );
 };
 
-const Divider = () => {
-  return (
-    <div className="flex items-center my-[3rem]">
-      <div className="h-[1px] w-full flex-1 bg-gradient-to-l from-dark to-light" />
-      <div className="flex gap-[13px] items-center">
-        <div className="w-2.5 h-2.5 rounded-full bg-dot-gradient" />
-        {/* <div className="flex gap-[5px]">
-          <div className="w-[30px] h-[30px]">
-            <Image src="/assets/star.png" alt="*" width={60} height={60} />
-          </div>
-          <div className="w-[30px] h-[30px]">
-            <Image src="/assets/star.png" alt="*" width={60} height={60} />
-          </div>
-          <div className="w-[30px] h-[30px]">
-            <Image src="/assets/star.png" alt="*" width={60} height={60} />
-          </div>
-          <div className="w-[30px] h-[30px]">
-            <Image src="/assets/star.png" alt="*" width={60} height={60} />
-          </div>
-          <div className="w-[30px] h-[30px]">
-            <Image src="/assets/star.png" alt="*" width={60} height={60} />
-          </div>
-        </div> */}
-        <div className="w-2.5 h-2.5 rounded-full bg-dot-gradient" />
-      </div>
-      <div className="h-[1px] w-full flex-1 bg-gradient-to-r from-dark to-light" />
-    </div>
-  );
-};
+// const Divider = () => {
+//   return (
+//     <div className="flex items-center my-[3rem]">
+//       <div className="h-[1px] w-full flex-1 bg-gradient-to-l from-dark to-light" />
+//       <div className="flex gap-[13px] items-center">
+//         <div className="w-2.5 h-2.5 rounded-full bg-dot-gradient" />
+//         {/* <div className="flex gap-[5px]">
+//           <div className="w-[30px] h-[30px]">
+//             <Image src="/assets/star.png" alt="*" width={60} height={60} />
+//           </div>
+//           <div className="w-[30px] h-[30px]">
+//             <Image src="/assets/star.png" alt="*" width={60} height={60} />
+//           </div>
+//           <div className="w-[30px] h-[30px]">
+//             <Image src="/assets/star.png" alt="*" width={60} height={60} />
+//           </div>
+//           <div className="w-[30px] h-[30px]">
+//             <Image src="/assets/star.png" alt="*" width={60} height={60} />
+//           </div>
+//           <div className="w-[30px] h-[30px]">
+//             <Image src="/assets/star.png" alt="*" width={60} height={60} />
+//           </div>
+//         </div> */}
+//         <div className="w-2.5 h-2.5 rounded-full bg-dot-gradient" />
+//       </div>
+//       <div className="h-[1px] w-full flex-1 bg-gradient-to-r from-dark to-light" />
+//     </div>
+//   );
+// };
