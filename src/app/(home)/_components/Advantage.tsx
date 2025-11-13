@@ -13,7 +13,7 @@ export const AdvantageSection = () => {
             </span>
             ERP?
           </h1>
-          <h2 className="text-center mt-4 text-[20px] leading-[27px] text-[#666666]">
+          <h2 className="text-center mt-4 text-[20px] leading-[27px] text-secondary">
             Lorem ipsum dolor sit amet consectetur. Rhoncus porttitor velit
             bibendum rutrum pharetra semper. Cursus nunc ultrices nulla dapibus
             purus semper penatibus sit quis. Morbi amet gravida scelerisque
@@ -21,7 +21,7 @@ export const AdvantageSection = () => {
           </h2>
         </div>
         <div className="mt-[50px] gap-[50px] grid lg:grid-cols-2 grid-cols-1">
-          <div className="bg-gradient-to-b from-social to-primary-foreground rounded-[20px] p-[30px] flex flex-col">
+          <div className="bg-gradient-to-b from-social to-light rounded-[20px] p-[30px] flex flex-col">
             <h3 className="text-[30px] leading-[36px] font-bold from-mild to-dark bg-gradient-to-b bg-clip-text text-transparent">
               Without GrowNext ERP
             </h3>
@@ -40,8 +40,8 @@ export const AdvantageSection = () => {
             </div>
           </div>
           <div
-            className="bg-primary-foreground rounded-[20px] p-[2px] flex flex-col bg-clip-content relative border-transparent shadow-[0px_10px_25px_-3px_#00000026]
-                    before:content-[''] before:absolute before:top-0 before:left-0 before:bg-gradient-to-b before:from-dark before:to-primary-foreground before:w-full before:h-full before:-z-10 before:rounded-[20px]">
+            className="bg-light rounded-[20px] p-[2px] flex flex-col bg-clip-content relative border-transparent shadow-[0px_10px_25px_-3px_#00000026]
+                    before:content-[''] before:absolute before:top-0 before:left-0 before:bg-gradient-to-b before:from-dark before:to-light before:w-full before:h-full before:-z-10 before:rounded-[20px]">
             <div className="p-[28px]">
               <h3 className="text-[30px] leading-[36px] font-bold from-mild to-dark bg-gradient-to-b bg-clip-text text-transparent">
                 With GrowNext ERP

@@ -27,7 +27,7 @@ export const Header = () => {
 
   return (
     <header style={{ zIndex: 9999 }} className="fixed w-full top-[15px]">
-      <ContentLayout className="bg-primary-foreground shadow rounded-[25px] md:rounded-[60px] py-1 border">
+      <ContentLayout className="bg-light shadow rounded-[25px] md:rounded-[60px] py-1 border">
         <div className="nav-center mx-3">
           <div className="flex gap-10">
             <Link href="/">

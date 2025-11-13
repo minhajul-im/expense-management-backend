@@ -13,13 +13,13 @@ export const HeroSection = () => {
             <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text">
               Your{" "}
             </span>
-            <span className="from-[#555555] to-black bg-gradient-to-b bg-clip-text font-extrabold">
+            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold">
               Business{" "}
             </span>
-            <span className="from-[#555555] to-black bg-gradient-to-b bg-clip-text">
+            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text">
               from One{" "}
             </span>
-            <span className="from-[#555555] to-black bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[110%] after:h-[22%] after:bg-cover after:bg-no-repeat after:bg-[url('/font_deco_short.png')] after:-z-20">
+            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[110%] after:h-[22%] after:bg-cover after:bg-no-repeat after:bg-[url('/font_deco_short.png')] after:-z-20">
               Core.
             </span>
           </h1>
@@ -28,7 +28,7 @@ export const HeroSection = () => {
           </h2>
 
           <div className="flex gap-5 mt-5 lg:mt-0 justify-center lg:justify-start">
-            <button className="rounded-[32px] px-[1.5rem] py-[0.75rem] bg-gradient-to-b from-secondary to-primary text-primary-foreground">
+            <button className="rounded-[32px] px-[1.5rem] py-[0.75rem] bg-gradient-to-b from-secondary to-primary text-light">
               Start For Free
             </button>
             <button className="rounded-[32px] px-[1.5rem] py-[0.75rem] border border-primary">

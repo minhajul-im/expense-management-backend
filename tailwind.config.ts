@@ -6,7 +6,6 @@ const config: Config = {
     extend: {
       colors: {
         primary: "var(--primary-color)",
-        "primary-foreground": "var(--primary-foreground)",
         mild: "var(--mild-color)",
         border: "var(--border-color)",
         "mild-dark": "var(--mild-dark)",

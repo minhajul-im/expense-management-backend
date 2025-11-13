@@ -75,7 +75,7 @@ export const FeaturesSection = () => {
             </div>
           </div>
           <div className="relative flex">
-            <button className="mt-6 lg:mt-[66px] mx-auto rounded-[32px] bg-gradient-to-b from-secondary to-primary text-primary-foreground py-[0.5rem] px-[1rem]">
+            <button className="mt-6 lg:mt-[66px] mx-auto rounded-[32px] bg-gradient-to-b from-secondary to-primary text-light py-[0.5rem] px-[1rem]">
               Explore All Features
             </button>
             <div className="absolute -bottom-3 left-[48.5%] lg:-translate-x-[170%] md:-translate-x-[180%] -translate-x-[180%]">
