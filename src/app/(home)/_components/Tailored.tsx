@@ -25,13 +25,13 @@ export const TailoredSection = () => {
               stunning, highly functional, and customized to your unique
               requirements.
             </h2>
-            <div className="mt-[2.5rem] flex mx-auto gap-5">
+            <div className="mt-[1rem] flex mx-auto gap-5">
               <Link href="https://dashboard.grownext.app/register">
-                <Button>Start For Free</Button>
+                <Button>Start for free</Button>
               </Link>
 
-              <Link href="https://dashboard.grownext.app/register">
-                <Button size="outline"> Schedule a Demo</Button>
+              <Link href="/contact">
+                <Button size="outline"> Schedule a demo</Button>
               </Link>
             </div>
           </div>

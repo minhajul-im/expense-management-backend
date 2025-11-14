@@ -6,16 +6,12 @@ export const PlanSection = () => {
   return (
     <ContentLayout>
       <h1 className="text-center text-[40px] md:text-[42px] lg:text-[48px] leading-[120%] font-extrabold from-mild to-dark bg-gradient-to-b bg-clip-text text-transparent">
-        Swap Multiple Tools for&nbsp;
-        <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[100%] after:translate-y-[40%] after:h-[30%] after:bg-contain after:bg-no-repeat after:bg-[url('/font_underline.png')] after:-z-20">
-          GrowNext&nbsp;
-        </span>
-        and Save Money
+        Replace multiple tools with GrowNext & save money
       </h1>
       <h2 className="text-center mt-[1rem] text-[20px] leading-[27px] text-secondary max-w-[1070px] mx-auto">
-        Lorem ipsum dolor sit amet consectetur. Rhoncus porttitor velit bibendum
-        rutrum pharetra semper. Cursus nunc ultrices nulla dapibus purus semper
-        penatibus sit quis. Morbi amet gravida scelerisque proin amet morbi.
+        Replace multiple tools with GrowNext to streamline your work, save time,
+        increase productivity, and cut costs. Using one platform also ensures
+        full data privacy, control, security, and efficient workflow management.
       </h2>
 
       <div className="pt-[3rem] flex gap-4 sm:gap-10 flex-col lg:flex-row px-0">
@@ -281,7 +277,7 @@ export const PlanSection = () => {
       </div>
       <div className="mx-auto text-paragraph mt-[50px] text-center">
         The comparison above was calculated using the most comparable pricing
-        plans as of April 2024
+        plans as of November 2025.
       </div>
     </ContentLayout>
   );

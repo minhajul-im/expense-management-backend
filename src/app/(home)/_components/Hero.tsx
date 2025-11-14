@@ -7,43 +7,55 @@ export const HeroSection = () => {
   return (
     <ContentLayout>
       <div className="flex w-full flex-col lg:flex-row items-center justify-between">
-        <div className="w-[95%] lg:w-[400px] flex flex-col gap-8">
-          <h1 className="text-[40px] md:text-[48px] lg:text-[56px] text-transparent font-medium leading-[104%] text-center lg:text-left">
-            <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[100%] after:translate-y-[20%] after:h-[22%] after:bg-contain after:bg-no-repeat after:bg-[url('/font_underline.png')] after:-z-20">
-              Powering{" "}
+        <div className="w-[95%] lg:w-[50%] flex flex-col gap-8">
+          <h1 className="text-[40px] md:text-[48px] lg:text-[56px] text-transparent font-medium leading-[104%] text-center lg:text-left flex flex-col">
+            <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text relative">
+              <span className="from-mild to-dark bg-gradient-to-b bg-clip-text">
+                Powering your{" "}
+              </span>
+              <span className="font-extrabold">business</span>
+              {/* <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[100%] after:translate-y-[20%] after:h-[22%] after:bg-contain after:bg-no-repeat after:bg-[url('/font_underline.png')] after:-z-20">
+               {" "}
+              </span> */}{" "}
             </span>
-            <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text">
-              Your{" "}
+            <span>
+              <span className="from-mild to-dark bg-gradient-to-b bg-clip-text">
+                with{" "}
+              </span>
+              <span className="from-secondary to-primary bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[100%] after:translate-y-[20%] after:h-[22%] after:bg-cover after:bg-no-repeat after:bg-[url('/font_underline.png')] after:-z-20">
+                AI & automation{" "}
+              </span>
             </span>
-            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold">
-              Business{" "}
-            </span>
-            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text">
-              from One{" "}
-            </span>
-            <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[110%] after:h-[22%] after:bg-cover after:bg-no-repeat after:bg-[url('/font_deco_short.png')] after:-z-20">
-              Core.
+            <span>
+              <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold">
+                from one core
+              </span>
+              <span className="from-mild to-dark bg-gradient-to-b bg-clip-text">
+                .
+              </span>
             </span>
           </h1>
-          <h2 className="text-secondary text-[20px] md:text-[24px] lg:text-[30px] leading-[140%] text-center lg:text-left">
-            Stay organized by keeping everything in one place!
+          <h2 className="text-secondary text-[20px] md:text-[24px] lg:text-[30px] leading-[140%] text-center lg:text-left flex flex-col">
+            <span>Stay organized, connected, and</span>
+            <span>on track — across your entire workflow.</span>
           </h2>
 
           <div className="flex gap-5 mt-5 lg:mt-0 justify-center lg:justify-start">
             <Link href="https://dashboard.grownext.app/register">
-              <Button>Start For Free</Button>
+              <Button>Start for free</Button>
             </Link>
-            <Link href="https://dashboard.grownext.app/register">
-              <Button size="outline"> Schedule a Demo</Button>
+            <Link href="/contact">
+              <Button size="outline"> Schedule a demo</Button>
             </Link>
           </div>
         </div>
-        <div className="w-[100%] h-[504px] lg:w-[676px] lg:h-[477px] relative overflow-hidden">
+        <div className="lg:w-[50%]">
           <Image
             src="/intro.svg"
             alt="Hero Image"
-            fill
-            className="absolute w-full h-full object-contain"
+            width={1000}
+            height={1000}
+            className="w-full h-full object-contain"
             priority
           />
         </div>

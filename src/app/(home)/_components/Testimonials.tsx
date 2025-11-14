@@ -31,7 +31,7 @@ export const TestimonialsSection = () => {
   }, [curIdx]);
 
   return (
-    <ContentLayout>
+    <ContentLayout className="mt-[4.5rem]">
       <div className="flex gap-[3rem] flex-col">
         <div>
           <h1 className="text-center text-[40px] md:text-[42px] lg:text-[48px] leading-[104%] font-extrabold from-mild to-dark bg-gradient-to-b bg-clip-text text-transparent">

@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ContentLayout } from "@/components/common/common";
 import { Button } from "@/components/ui/button";
+import { User } from "lucide-react";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -22,8 +22,8 @@ export const Header = () => {
   ];
 
   const extraMenus = [
-    { name: "Request Demo", path: "https://dashboard.grownext.app/register" },
-    { name: "Login", path: "https://dashboard.grownext.app/login" },
+    { name: "Request a demo", path: "/contact" },
+    { name: "Login", path: "https://dashboard.grownext.app" },
   ];
 
   return (
@@ -57,19 +57,17 @@ export const Header = () => {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-5 ms-auto">
-            <Link
-              href="https://dashboard.grownext.app/register"
-              className="text-primary my-auto">
-              Request a Demo
+            <Link href="contact" className="text-primary my-auto">
+              Request a demo
             </Link>
-            <Link href="https://dashboard.grownext.app/login">
+            <Link href="https://dashboard.grownext.app">
               <button className="flex gap-2 items-center">
-                <UserRound width={18} height={20} />
+                <User absoluteStrokeWidth />
                 Login
               </button>
             </Link>
             <Link href="https://dashboard.grownext.app/register">
-              <Button size="md">Start For Free</Button>
+              <Button size="md">Start for free</Button>
             </Link>
           </div>
           <button
@@ -120,7 +118,7 @@ export const Header = () => {
             <Link
               href="https://dashboard.grownext.app/register"
               className="p-3 w-full">
-              <Button className="w-full">Start For Free</Button>
+              <Button className="w-full">Start for free</Button>
             </Link>
           </div>
         </div>

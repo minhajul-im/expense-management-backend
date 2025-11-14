@@ -3,20 +3,16 @@ import Image from "next/image";
 
 export const LevelUpSection = () => {
   return (
-    <section className="bg-custom-gradient pt-[4.5rem]">
+    <section className="bg-custom-gradient py-[4.5rem]">
       <div className="flex flex-col">
         <h1 className="text-center text-[40px] md:text-[42px] lg:text-[48px] leading-[104%] font-extrabold from-mild to-dark bg-gradient-to-b bg-clip-text text-transparent">
-          Level up your&nbsp;
-          <span className="from-mild to-dark bg-gradient-to-b bg-clip-text font-extrabold relative after:absolute after:bottom-0 after:left-0 after:w-[100%] after:translate-y-[40%] after:h-[30%] after:bg-contain after:bg-no-repeat after:bg-[url('/font_underline.png')] after:-z-20">
-            quality&nbsp;
-          </span>
-          of work
+          Level up with AI & automation
         </h1>
         <h2 className="px-[50px] text-center mt-[1rem] text-[20px] leading-[27px] text-secondary max-w-[1070px] mx-auto">
-          Lorem ipsum dolor sit amet consectetur. Rhoncus porttitor velit
-          bibendum rutrum pharetra semper. Cursus nunc ultrices nulla dapibus
-          purus semper penatibus sit quis. Morbi amet gravida scelerisque proin
-          amet morbi.
+          GrowNext provides a simple yet powerful platform built on the latest
+          technologies. Backed by Google and Amazon Web Services, it is fast,
+          reliable, secure, and AI and automation boost team productivity up to
+          5×.
         </h2>
       </div>
       <div className="relative">
@@ -71,7 +67,7 @@ export const LevelUpSection = () => {
       </div>
       <div className="mt-[3rem] flex">
         <div className="text-lg mx-auto leading-[120%] font-medium relative text-mild-dark">
-          Click To Play The Video
+          Click to play video
           <Image
             src="/assets/arrowup.svg"
             alt="UpArrow"

@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <BaseLayout>
       <HeroSection />
-      <section className="flex flex-col gap-y-[4.5rem]">
+      <section className="flex flex-col">
         <FeaturesSection />
         <AdvantageSection />
         <LevelUpSection />

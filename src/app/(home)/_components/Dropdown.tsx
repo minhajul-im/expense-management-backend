@@ -16,7 +16,7 @@ export const FeatureDropdown = ({
   };
 
   return (
-    <div className="flex pt-5 pe-[13.29px] pb-[5px] bg-light shadow-lg rounded-default flex-col w-[330px] me-3">
+    <div className="flex pt-5 pe-[13.29px] pb-[5px] bg-light shadow-lg rounded-default flex-col w-[330px] me-3 ">
       <div className="h-[24px] mb-4 relative w-full">
         <div className="text-[24px] ms-[19px] font-semibold absolute top-[50%] left-0 translate-y-[-50%]">
           Features
@@ -24,7 +24,7 @@ export const FeatureDropdown = ({
       </div>
       <div className="flex ps-2.5 flex-col">
         <button
-          className="border-t border-b border-border ps-2.5 py-3 pe-3 nav-center w-full"
+          className="border-t border-border ps-2.5 py-3 pe-3 nav-center w-full"
           onClick={() => toggleSubmenu(1)}>
           <div className="flex gap-2 items-center">
             <Image
@@ -34,7 +34,9 @@ export const FeatureDropdown = ({
               height={20}
               priority
             />
-            <div className="text-[20px] font-semibold">Collaboration</div>
+            <div className="text-[20px] font-semibold">
+              Tasks & Collaboration
+            </div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
             <ChevronRight
@@ -45,18 +47,14 @@ export const FeatureDropdown = ({
           </div>
         </button>
         {submenu == 1 && (
-          <div className="mx-auto py-4">
-            <div>
-              <ul className="list-disc text-[20px] lh-[30px] ms-8">
-                <li className="cursor-pointer">Tasks</li>
-                <li className="cursor-pointer">Projects</li>
-                <li className="cursor-pointer">Gantt chart</li>
-                <li className="cursor-pointer">Kanban board</li>
-                <li className="cursor-pointer">Time tracking</li>
-                <li className="cursor-pointer">Task & project templates</li>
-              </ul>
-            </div>
-          </div>
+          <LayoutFeature>
+            <li className="cursor-pointer">Projects</li>
+            <li className="cursor-pointer">Tasks</li>
+            <li className="cursor-pointer">Wiki</li>
+            <li className="cursor-pointer">Files</li>
+            <li className="cursor-pointer">Chats</li>
+            <li className="cursor-pointer">Meetings</li>
+          </LayoutFeature>
         )}
         <button
           className="border-t border-border ps-2.5 py-3 pe-3 nav-center w-full"
@@ -69,7 +67,7 @@ export const FeatureDropdown = ({
               height={20}
               priority
             />
-            <div className="text-[20px] font-semibold">Task & Projects</div>
+            <div className="text-[20px] font-semibold">Human Resources</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
             <ChevronRight
@@ -80,18 +78,14 @@ export const FeatureDropdown = ({
           </div>
         </button>
         {submenu == 2 && (
-          <div className="mx-auto py-4">
-            <div>
-              <ul className="list-disc text-[20px] lh-[30px] ms-8">
-                <li className="cursor-pointer">Tasks</li>
-                <li className="cursor-pointer">Projects</li>
-                <li className="cursor-pointer">Gantt chart</li>
-                <li className="cursor-pointer">Kanban board</li>
-                <li className="cursor-pointer">Time tracking</li>
-                <li className="cursor-pointer">Task & project templates</li>
-              </ul>
-            </div>
-          </div>
+          <LayoutFeature>
+            <li className="cursor-pointer">Employees</li>
+            <li className="cursor-pointer">Recruitment</li>
+            <li className="cursor-pointer">Job posting</li>
+            <li className="cursor-pointer">Time off</li>
+            <li className="cursor-pointer">Payroll & Appraisals</li>
+            <li className="cursor-pointer">Productivity monitoring</li>
+          </LayoutFeature>
         )}
         <button
           className="border-t border-border ps-2.5 py-3 pe-3 nav-center w-full"
@@ -104,7 +98,7 @@ export const FeatureDropdown = ({
               height={20}
               priority
             />
-            <div className="text-[20px] font-semibold">Sites & Stores</div>
+            <div className="text-[20px] font-semibold">Sales</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
             <ChevronRight
@@ -115,18 +109,14 @@ export const FeatureDropdown = ({
           </div>
         </button>
         {submenu == 3 && (
-          <div className="mx-auto py-4">
-            <div>
-              <ul className="list-disc text-[20px] lh-[30px] ms-8">
-                <li className="cursor-pointer">Tasks</li>
-                <li className="cursor-pointer">Projects</li>
-                <li className="cursor-pointer">Gantt chart</li>
-                <li className="cursor-pointer">Kanban board</li>
-                <li className="cursor-pointer">Time tracking</li>
-                <li className="cursor-pointer">Task & project templates</li>
-              </ul>
-            </div>
-          </div>
+          <LayoutFeature>
+            <li className="cursor-pointer">CRM</li>
+            <li className="cursor-pointer">Marketing campaigns</li>
+            <li className="cursor-pointer">Sign</li>
+            <li className="cursor-pointer">Chatbot</li>
+            <li className="cursor-pointer">Quotations</li>
+            <li className="cursor-pointer">Targets</li>
+          </LayoutFeature>
         )}
         <button
           className="border-t border-border ps-2.5 py-3 pe-3 nav-center w-full"
@@ -139,7 +129,7 @@ export const FeatureDropdown = ({
               height={20}
               priority
             />
-            <div className="text-[20px] font-semibold">HR & Automation</div>
+            <div className="text-[20px] font-semibold">Finance</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
             <ChevronRight
@@ -150,18 +140,14 @@ export const FeatureDropdown = ({
           </div>
         </button>
         {submenu == 4 && (
-          <div className="mx-auto py-4">
-            <div>
-              <ul className="list-disc text-[20px] lh-[30px] ms-8">
-                <li className="cursor-pointer">Tasks</li>
-                <li className="cursor-pointer">Projects</li>
-                <li className="cursor-pointer">Gantt chart</li>
-                <li className="cursor-pointer">Kanban board</li>
-                <li className="cursor-pointer">Time tracking</li>
-                <li className="cursor-pointer">Task & project templates</li>
-              </ul>
-            </div>
-          </div>
+          <LayoutFeature>
+            <li className="cursor-pointer">Accounting</li>
+            <li className="cursor-pointer">Invoicing</li>
+            <li className="cursor-pointer">Inventory</li>
+            <li className="cursor-pointer">Expenses</li>
+            <li className="cursor-pointer">Profit & Loss</li>
+            <li className="cursor-pointer">Dedicated accountant</li>
+          </LayoutFeature>
         )}
         <button
           className="border-t border-border ps-2.5 py-3 pe-3 nav-center w-full"
@@ -174,7 +160,7 @@ export const FeatureDropdown = ({
               height={20}
               priority
             />
-            <div className="text-[20px] font-semibold">CMS</div>
+            <div className="text-[20px] font-semibold">Website & Helpdesk</div>
           </div>
           <div className="w-[18px] h-[18px] d-flex">
             <ChevronRight
@@ -185,20 +171,26 @@ export const FeatureDropdown = ({
           </div>
         </button>
         {submenu == 5 && (
-          <div className="mx-auto py-4">
-            <div>
-              <ul className="list-disc text-[20px] lh-[30px] ms-8">
-                <li className="cursor-pointer">Tasks</li>
-                <li className="cursor-pointer">Projects</li>
-                <li className="cursor-pointer">Gantt chart</li>
-                <li className="cursor-pointer">Kanban board</li>
-                <li className="cursor-pointer">Time tracking</li>
-                <li className="cursor-pointer">Task & project templates</li>
-              </ul>
-            </div>
-          </div>
+          <LayoutFeature>
+            <li className="cursor-pointer">Informational website</li>
+            <li className="cursor-pointer">Online store</li>
+            <li className="cursor-pointer">Blog</li>
+            <li className="cursor-pointer">Marketing </li>
+            <li className="cursor-pointer">Support tickets</li>
+            <li className="cursor-pointer">Live chat</li>
+          </LayoutFeature>
         )}
       </div>
+    </div>
+  );
+};
+
+const LayoutFeature = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="pb-5">
+      <ul className="list-disc text-[20px] lh-[30px] ms-[3.6rem]">
+        {children}
+      </ul>
     </div>
   );
 };
