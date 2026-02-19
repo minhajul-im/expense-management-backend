@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expense Management System - Backend
 
-## Getting Started
+A clean, production-grade REST API for an expense management application built with TypeScript and Node.js.
 
-First, run the development server:
+## 🛠️ Technologies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Runtime:** Node.js 22+
+- **Framework:** Express.js
+- **Language:** TypeScript (strict mode)
+- **Database:** PostgreSQL with `pg` library
+- **Validation:** Zod
+- **Authentication:** JWT + Cookie-based
+- **Security:** Helmet, CORS, Rate Limiting
+- **Logging:** Pino
+- **Testing:** Jest + ts-jest
+- **Dev Tools:** tsx, Prettier, ESLint
+
+## 📁 Folder Structure
+
+```
+src/
+├── __tests__/
+│   ├── setup.ts
+│   └── health/
+│       ├── HealthController.test.ts
+│       └── HealthRepository.test.ts
+├── config/
+│   ├── Database.ts        # PostgreSQL pool setup
+│   ├── env.ts             # Environment validation (Zod)
+│   └── auth.config.ts     # JWT & auth configuration
+├── core/
+│   ├── errors/
+│   │   ├── AppError.ts    # Custom error classes
+│   │   └── zodHelper.ts   # Zod validation helpers
+│   ├── middleware/
+│   │   ├── asyncHandler.ts    # Async route wrapper
+│   │   ├── errorHandler.ts    # Global error handler
+│   │   └── auth.ts            # Authentication middleware
+│   ├── success/
+│   │   └── SuccessResponse.ts # Response formatter
+│   ├── types/
+│   │   └── index.ts       # TypeScript types
+│   └── utils/             # Utility functions
+├── modules/
+│   ├── health/
+│   │   ├── HealthController.ts
+│   │   ├── HealthRepository.ts
+│   │   └── health.routes.ts
+│   ├── auth/
+│   │   ├── AuthController.ts
+│   │   ├── AuthService.ts
+│   │   ├── UserRepository.ts
+│   │   ├── user.dto.ts
+│   │   └── auth.routes.ts
+│   └── category/
+│       ├── CategoryController.ts
+│       ├── CategoryService.ts
+│       ├── CategoryRepository.ts
+│       └── category.dto.ts
+├── schema/
+│   ├── health.table.ts    # Database table definitions
+│   └── index.ts
+├── container.ts           # Dependency injection
+└── index.ts               # Main app entry point
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+pnpm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Set up environment variables
+cp .env.example .env
 
-## Learn More
+# Run dev server
+npm run dev
 
-To learn more about Next.js, take a look at the following resources:
+# Run tests
+npm test
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build for production
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 Architecture
 
-## Deploy on Vercel
+- **Controllers:** Handle HTTP requests/responses
+- **Services:** Business logic layer
+- **Repositories:** Database access layer
+- **DTOs:** Data validation with Zod
+- **Middleware:** Request processing (auth, error handling, etc.)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧪 Testing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm test                    # Run all tests
+npm run test:watch         # Watch mode
+npm run test:cov           # Coverage report
+npm test -- src/__tests__/health  # Test specific module
+```
+
+See [TESTING.md](TESTING.md) for detailed testing guide.
