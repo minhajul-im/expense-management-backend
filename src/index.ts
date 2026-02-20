@@ -45,6 +45,7 @@ const container = createContainer(dbClient);
 app.use("/api", limiter);
 app.use("/health", container.healthRouter);
 app.use("/api/v1/auth", container.authRouter);
+app.use("/api/v1/organizations", container.organizationRouter);
 app.use("/api/v1/categories", container.categoryRouter);
 
 app.use("*", (_req, _res, next) => {
