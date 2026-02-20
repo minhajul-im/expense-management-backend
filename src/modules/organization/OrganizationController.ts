@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import { asyncHandler } from "../../core/middleware/asyncHandler";
 import { ResponseUtil } from "../../core/success/SuccessResponse";
 import { IOrganizationRepository } from "./OrganizationRepository";
@@ -12,41 +12,44 @@ export class OrganizationController {
 		private repository: IOrganizationRepository
 	) {}
 
-	public create = asyncHandler(async (req: Request, res: Response) => {
+	public create: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const input = this.service.createValidator(req.body);
 		await this.hasDuplicate(input.username);
 		const result = await this.repository.create(input);
 		ResponseUtil.sendCreate(res, result, "Organization created successfully");
 	});
 
-	public getAll = asyncHandler(async (req: Request, res: Response) => {
+	public getAll: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const result = await this.repository.findAll(req.query);
 		ResponseUtil.sendList(res, result, "Organizations retrieved successfully");
 	});
 
-	public getById = asyncHandler(async (req: Request, res: Response) => {
+	public getById: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const id = getParamsIdNumber(req, "Invalid organization ID");
 		const result = await this.repository.findById(id);
 		if (!result) throw new Error("Organization not found!");
 		ResponseUtil.sendOk(res, result, "Organization retrieved successfully");
 	});
 
-	public getByUsername = asyncHandler(async (req: Request, res: Response) => {
+	public getByUsername: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const username = req.params?.username as string;
 		if (!username) throw new NotFoundError("Organization not found!");
-		const result = this.hasDuplicate(username);
+		const result = await this.hasDuplicate(username);
 		ResponseUtil.sendOk(res, result, "Organization retrieved successfully");
 	});
 
-	public update = asyncHandler(async (req: Request, res: Response) => {
+	public update: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const id = getParamsIdNumber(req, "Invalid organization ID");
 		const input = this.service.updateValidator(req.body);
 		await this.hasOrganization(id);
+		if (input?.username) {
+			await this.hasDuplicate(input?.username);
+		}
 		const result = await this.repository.update(id, input);
 		ResponseUtil.sendUpdate(res, result, "Organization updated successfully");
 	});
 
-	public delete = asyncHandler(async (req: Request, res: Response) => {
+	public delete: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const id = getParamsIdNumber(req, "Invalid organization ID");
 		await this.hasOrganization(id);
 		const result = await this.repository.delete(id);

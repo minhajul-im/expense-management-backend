@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 
 import { asyncHandler } from "../../core/middleware/asyncHandler";
 import { ResponseUtil } from "../../core/success/SuccessResponse";
@@ -7,7 +7,7 @@ import { IHealthRepository } from "./HealthRepository";
 export class HealthController {
 	constructor(private healthRepository: IHealthRepository) {}
 
-	serverHealth = asyncHandler(async (req: Request, res: Response) => {
+	serverHealth: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		ResponseUtil.sendOk(
 			res,
 			{
@@ -19,7 +19,7 @@ export class HealthController {
 		);
 	});
 
-	databaseHealth = asyncHandler(async (req: Request, res: Response) => {
+	databaseHealth: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		ResponseUtil.sendOk(
 			res,
 			{
@@ -32,7 +32,7 @@ export class HealthController {
 		);
 	});
 
-	storeHealth = asyncHandler(async (req: Request, res: Response) => {
+	storeHealth: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		console.log(req.body);
 		const health = await this.healthRepository.create(req.body);
 		ResponseUtil.sendOk(res, health, "Health check successful");
