@@ -10,11 +10,16 @@ import { CategoryController } from "./modules/category/CategoryController";
 import { CategoryService } from "./modules/category/CategoryService";
 import { CategoryRepository } from "./modules/category/CategoryRepository";
 import { createCategoryRouter } from "./modules/category/category.routes";
+import { OrganizationRepository } from "./modules/organization/OrganizationRepository";
+import { OrganizationService } from "./modules/organization/OrganizationService";
+import { OrganizationController } from "./modules/organization/OrganizationController";
+import { createOrganizationRouter } from "./modules/organization/organization.routes";
 
 export interface IContainer {
 	authRouter: ReturnType<typeof createAuthRouter>;
 	healthRouter: ReturnType<typeof createHealthRouter>;
 	categoryRouter: ReturnType<typeof createCategoryRouter>;
+	organizationRouter: ReturnType<typeof createCategoryRouter>;
 }
 
 export function createContainer(dbClient: DbClient): IContainer {
@@ -27,6 +32,16 @@ export function createContainer(dbClient: DbClient): IContainer {
 	const healthController = new HealthController(healthRepository);
 	const healthRouter = createHealthRouter(healthController);
 
+	// ORGANIZATION CLASS
+
+	const organizationRepository = new OrganizationRepository();
+	const organizationService = new OrganizationService();
+	const organizationController = new OrganizationController(
+		organizationService,
+		organizationRepository
+	);
+	const organizationRouter = createOrganizationRouter(organizationController);
+
 	const categoryRepository = new CategoryRepository();
 	const categoryService = new CategoryService(categoryRepository);
 	const categoryController = new CategoryController(categoryService);
@@ -36,5 +51,6 @@ export function createContainer(dbClient: DbClient): IContainer {
 		authRouter,
 		healthRouter,
 		categoryRouter,
+		organizationRouter,
 	};
 }
