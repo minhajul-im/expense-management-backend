@@ -8,6 +8,13 @@
       "when": 1771585333877,
       "tag": "0000_cool_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771695003533,
+      "tag": "0001_lowly_lady_vermin",
+      "breakpoints": true
     }
   ]
 }

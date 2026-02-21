@@ -1,24 +1,30 @@
-import { ICategoryRepository } from "./CategoryRepository";
+import { handleZodError } from "../../core/errors/zodHelper";
+import {
+	CreateCategoryInput,
+	UpdateCategoryInput,
+	createCategorySchema,
+	updateCategorySchema,
+} from "./category.schema";
 
 export interface ICategoryService {
-	getAllCategories(): Promise<any>;
-	createCategory(input: CategoryInput): Promise<any>;
-}
-
-interface CategoryInput {
-	name: string;
-	isActive?: boolean;
+	createValidator(input: any): CreateCategoryInput;
+	updateValidator(input: any): UpdateCategoryInput;
 }
 
 export class CategoryService implements ICategoryService {
-	constructor(private categoryRepository: ICategoryRepository) {}
-
-	async getAllCategories() {
-		return await this.categoryRepository.getAll();
+	public createValidator(input: any): CreateCategoryInput {
+		const data = createCategorySchema.safeParse(input);
+		if (!data.success) {
+			throw handleZodError(data.error);
+		}
+		return data.data;
 	}
 
-	async createCategory(input: CategoryInput) {
-		// You can add validation or business logic here
-		return await this.categoryRepository.create(input);
+	public updateValidator(input: any): UpdateCategoryInput {
+		const data = updateCategorySchema.safeParse(input);
+		if (!data.success) {
+			throw handleZodError(data.error);
+		}
+		return data.data;
 	}
 }

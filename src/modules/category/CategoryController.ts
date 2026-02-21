@@ -1,40 +1,70 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { ICategoryService } from "./CategoryService";
+import { ICategoryRepository } from "./CategoryRepository";
+import { asyncHandler } from "../../core/middleware/asyncHandler";
+import { ResponseUtil } from "../../core/success/SuccessResponse";
+import { ConflictError, NotFoundError } from "../../core/errors/AppError";
+import { getParamsIdNumber } from "../../core/utils/helper";
+import { RequestWithOrgType } from "../../core/types";
 
 export class CategoryController {
-	constructor(private categoryService: ICategoryService) {}
+	constructor(
+		private service: ICategoryService,
+		private repository: ICategoryRepository
+	) {}
 
-	async getAllCategories(req: Request, res: Response) {
-		try {
-			const categories = await this.categoryService.getAllCategories();
-			res.status(200).json({
-				success: true,
-				data: categories,
-			});
-		} catch (error: any) {
-			res.status(500).json({
-				success: false,
-				message: error.message,
-			});
-		}
+	private async hasCategory(id: number, orgId: number) {
+		const hasData = await this.repository.findById(id, orgId);
+		if (!hasData) throw new NotFoundError("Category not found!");
+		return hasData;
 	}
 
-	async createCategory(req: Request, res: Response) {
-		try {
-			const { name, isActive } = req.body;
-			const category = await this.categoryService.createCategory({
-				name,
-				isActive,
-			});
-			res.status(201).json({
-				success: true,
-				data: category,
-			});
-		} catch (error: any) {
-			res.status(500).json({
-				success: false,
-				message: error.message,
-			});
-		}
+	private async hasDuplicate(name: string, orgId: number) {
+		const hasData = await this.repository.findByName(name, orgId);
+		if (hasData) throw new ConflictError("Category with this name already exists");
+		return hasData;
 	}
+
+	private getOrgId(req: Request): number {
+		const orgId = (req as RequestWithOrgType).orgId;
+		return orgId;
+	}
+
+	public getAll: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+		const orgId = this.getOrgId(req);
+		const result = await this.repository.getAll(orgId);
+		ResponseUtil.sendList(res, result, "Categories retrieved successfully");
+	});
+
+	public getById: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+		const orgId = this.getOrgId(req);
+		const id = getParamsIdNumber(req, "Invalid category ID");
+		const result = await this.hasCategory(id, orgId);
+		ResponseUtil.sendOk(res, result, "Category retrieved successfully");
+	});
+
+	public create: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+		const orgId = this.getOrgId(req);
+		const data = this.service.createValidator(req.body);
+		await this.hasDuplicate(data.name, orgId);
+		const result = await this.repository.create({ ...data, organization_id: orgId });
+		ResponseUtil.sendCreate(res, result, "Category created successfully");
+	});
+
+	public update: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+		const orgId = this.getOrgId(req);
+		const id = getParamsIdNumber(req, "Invalid category ID");
+		const data = this.service.updateValidator(req.body);
+		await this.hasCategory(id, orgId);
+		const result = await this.repository.update(id, orgId, data);
+		ResponseUtil.sendUpdate(res, result, "Category updated successfully");
+	});
+
+	public delete: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+		const orgId = this.getOrgId(req);
+		const id = getParamsIdNumber(req, "Invalid category ID");
+		await this.hasCategory(id, orgId);
+		const result = await this.repository.delete(id, orgId);
+		ResponseUtil.sendDelete(res, result, "Category deleted successfully");
+	});
 }
