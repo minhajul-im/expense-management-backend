@@ -28,12 +28,12 @@ export function createContainer(dbClient: DbClient): IContainer {
 	const authController = new AuthController(authService);
 	const authRouter = createAuthRouter(authController);
 
+	// HEALTH CLASS
 	const healthRepository = new HealthRepository(dbClient);
 	const healthController = new HealthController(healthRepository);
 	const healthRouter = createHealthRouter(healthController);
 
 	// ORGANIZATION CLASS
-
 	const organizationRepository = new OrganizationRepository();
 	const organizationService = new OrganizationService();
 	const organizationController = new OrganizationController(
@@ -42,10 +42,11 @@ export function createContainer(dbClient: DbClient): IContainer {
 	);
 	const organizationRouter = createOrganizationRouter(organizationController);
 
+	// CATEGORY CLASS
 	const categoryRepository = new CategoryRepository();
-	const categoryService = new CategoryService(categoryRepository);
-	const categoryController = new CategoryController(categoryService);
-	const categoryRouter = createCategoryRouter(categoryController);
+	const categoryService = new CategoryService();
+	const categoryController = new CategoryController(categoryService, categoryRepository);
+	const categoryRouter = createCategoryRouter(categoryController, organizationRepository);
 
 	return {
 		authRouter,

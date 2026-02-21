@@ -1,28 +1,73 @@
+import { and, eq } from "drizzle-orm";
 import { drizzleDb } from "../../config/Database";
-import { categories } from "../../schema/drizzle/category.table";
+import { CategorySchemaType, categories } from "../../schema/drizzle/category.table";
+import { UpdateCategoryInput } from "./category.schema";
 
 export interface ICategoryRepository {
-	getAll(): Promise<any | null>;
-	create(input: CategoryInput): Promise<any | null>;
-}
-
-interface CategoryInput {
-	name: string;
-	isActive?: boolean;
+	getAll(orgId: number): Promise<any | null>;
+	create(input: CategorySchemaType): Promise<any | null>;
+	update(id: number, orgId: number, input: UpdateCategoryInput): Promise<any | null>;
+	findById(id: number, orgId: number): Promise<any | null>;
+	findByName(name: string, orgId: number): Promise<any | null>;
+	delete(id: number, orgId: number): Promise<any | null>;
 }
 
 export class CategoryRepository implements ICategoryRepository {
-	async getAll(): Promise<any | null> {
-		return await drizzleDb.select().from(categories);
+	public async getAll(orgId: number) {
+		return await drizzleDb
+			.select()
+			.from(categories)
+			.where(eq(categories.organization_id, orgId));
 	}
 
-	async create(input: CategoryInput) {
+	public async create(input: CategorySchemaType) {
 		const result = await drizzleDb
 			.insert(categories)
 			.values({
 				name: input.name,
+				image: input.image,
 				isActive: input.isActive ?? true,
+				organization_id: input.organization_id,
 			})
+			.returning();
+		return result[0];
+	}
+
+	public async update(id: number, orgId: number, input: UpdateCategoryInput) {
+		const result = await drizzleDb
+			.update(categories)
+			.set({
+				...(input.name !== undefined && { name: input.name }),
+				...(input.image !== undefined && { image: input.image }),
+				...(input.isActive !== undefined && { isActive: input.isActive }),
+			})
+			.where(and(eq(categories.id, id), eq(categories.organization_id, orgId)))
+			.returning();
+		return result[0];
+	}
+
+	public async findById(id: number, orgId: number) {
+		const result = await drizzleDb
+			.select()
+			.from(categories)
+			.where(and(eq(categories.id, id), eq(categories.organization_id, orgId)))
+			.limit(1);
+		return result[0];
+	}
+
+	public async findByName(name: string, orgId: number) {
+		const result = await drizzleDb
+			.select()
+			.from(categories)
+			.where(and(eq(categories.name, name), eq(categories.organization_id, orgId)))
+			.limit(1);
+		return result[0];
+	}
+
+	public async delete(id: number, orgId: number) {
+		const result = await drizzleDb
+			.delete(categories)
+			.where(and(eq(categories.id, id), eq(categories.organization_id, orgId)))
 			.returning();
 		return result[0];
 	}
