@@ -24,8 +24,8 @@ export const createBudgetInput = z.object({
 	limit_type: LIMIT_TYPE_ENUM.default(LIMIT_TYPE.NORMAL).optional(),
 });
 
-export type CreateBudgetInputType = z.infer<typeof createBudgetInput>;
+export type CreateBudgetInput = z.infer<typeof createBudgetInput>;
 
 export const updateBudgetInput = createBudgetInput.partial();
 
-export type UpdateBudgetInputType = z.infer<typeof updateBudgetInput>;
+export type UpdateBudgetInput = z.infer<typeof updateBudgetInput>;

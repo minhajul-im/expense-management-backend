@@ -4,8 +4,7 @@ import { ICategoryRepository } from "./CategoryRepository";
 import { asyncHandler } from "../../core/middleware/asyncHandler";
 import { ResponseUtil } from "../../core/success/SuccessResponse";
 import { ConflictError, NotFoundError } from "../../core/errors/AppError";
-import { getParamsIdNumber } from "../../core/utils/helper";
-import { RequestWithOrgType } from "../../core/types";
+import { getOrgIdFromReq, getParamsIdNumber } from "../../core/utils/helper";
 
 export class CategoryController {
 	constructor(
@@ -25,26 +24,21 @@ export class CategoryController {
 		return hasData;
 	}
 
-	private getOrgId(req: Request): number {
-		const orgId = (req as RequestWithOrgType).orgId;
-		return orgId;
-	}
-
 	public getAll: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-		const orgId = this.getOrgId(req);
+		const orgId = getOrgIdFromReq(req);
 		const result = await this.repository.getAll(orgId);
 		ResponseUtil.sendList(res, result, "Categories retrieved successfully");
 	});
 
 	public getById: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-		const orgId = this.getOrgId(req);
+		const orgId = getOrgIdFromReq(req);
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		const result = await this.hasCategory(orgId, id);
 		ResponseUtil.sendOk(res, result, "Category retrieved successfully");
 	});
 
 	public create: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-		const orgId = this.getOrgId(req);
+		const orgId = getOrgIdFromReq(req);
 		const data = this.service.createValidator(req.body);
 		await this.hasDuplicate(data.name, orgId);
 		const result = await this.repository.create({ ...data, organization_id: orgId });
@@ -52,7 +46,7 @@ export class CategoryController {
 	});
 
 	public update: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-		const orgId = this.getOrgId(req);
+		const orgId = getOrgIdFromReq(req);
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		const data = this.service.updateValidator(req.body);
 		await this.hasCategory(id, orgId);
@@ -61,10 +55,10 @@ export class CategoryController {
 	});
 
 	public delete: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-		const orgId = this.getOrgId(req);
+		const orgId = getOrgIdFromReq(req);
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		await this.hasCategory(id, orgId);
-		const result = await this.repository.delete(orgId, id);
-		ResponseUtil.sendDelete(res, result, "Category deleted successfully");
+		await this.repository.delete(orgId, id);
+		ResponseUtil.sendDelete(res, null, "Category deleted successfully");
 	});
 }

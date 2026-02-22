@@ -9,8 +9,8 @@ export const createOrganizationInput = z
 	})
 	.strict();
 
-export type CreateOrganizationInputType = z.infer<typeof createOrganizationInput>;
+export type CreateOrganizationInput = z.infer<typeof createOrganizationInput>;
 
 export const updateOrganizationInput = createOrganizationInput.partial();
 
-export type UpdateOrganizationInputType = z.infer<typeof updateOrganizationInput>;
+export type UpdateOrganizationInput = z.infer<typeof updateOrganizationInput>;
