@@ -1,7 +1,7 @@
 {
 	"name": "expense-app-backend",
 	"version": "1.0.0",
-	"description": "Expense management app backend with Node.js, Express, TypeScript, and PostgreSQL",
+	"description": "Expense management app backend with Node.js, Express, TypeScript, Drizzle and PostgreSQL",
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
