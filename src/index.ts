@@ -48,9 +48,10 @@ app.use("/api/v1/auth", container.authRouter);
 app.use("/api/v1/organizations", container.organizationRouter);
 app.use("/api/v1/categories", container.categoryRouter);
 app.use("/api/v1/budgets", container.budgetRouter);
+app.use("/api/v1/expenses", container.expenseRouter);
 
 app.use("*", (_req, _res, next) => {
-	next(new NotFoundError("Route not found"));
+	next(new NotFoundError("Route is not found!"));
 });
 
 app.use(errorHandler);
