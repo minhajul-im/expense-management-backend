@@ -14,13 +14,13 @@ export class CategoryController {
 	) {}
 
 	private async hasCategory(id: number, orgId: number) {
-		const hasData = await this.repository.findById(id, orgId);
+		const hasData = await this.repository.findById(orgId, id);
 		if (!hasData) throw new NotFoundError("Category not found!");
 		return hasData;
 	}
 
 	private async hasDuplicate(name: string, orgId: number) {
-		const hasData = await this.repository.findByName(name, orgId);
+		const hasData = await this.repository.findByName(orgId, name);
 		if (hasData) throw new ConflictError("Category with this name already exists");
 		return hasData;
 	}
@@ -39,7 +39,7 @@ export class CategoryController {
 	public getById: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const orgId = this.getOrgId(req);
 		const id = getParamsIdNumber(req, "Invalid category ID");
-		const result = await this.hasCategory(id, orgId);
+		const result = await this.hasCategory(orgId, id);
 		ResponseUtil.sendOk(res, result, "Category retrieved successfully");
 	});
 
@@ -56,7 +56,7 @@ export class CategoryController {
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		const data = this.service.updateValidator(req.body);
 		await this.hasCategory(id, orgId);
-		const result = await this.repository.update(id, orgId, data);
+		const result = await this.repository.update(orgId, id, data);
 		ResponseUtil.sendUpdate(res, result, "Category updated successfully");
 	});
 
@@ -64,7 +64,7 @@ export class CategoryController {
 		const orgId = this.getOrgId(req);
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		await this.hasCategory(id, orgId);
-		const result = await this.repository.delete(id, orgId);
+		const result = await this.repository.delete(orgId, id);
 		ResponseUtil.sendDelete(res, result, "Category deleted successfully");
 	});
 }

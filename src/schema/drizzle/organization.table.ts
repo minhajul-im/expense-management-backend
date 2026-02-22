@@ -6,9 +6,9 @@ export const organizations = pgTable("organizations", {
 	username: varchar("username", { length: 100 }).notNull().unique(),
 	description: varchar("description", { length: 255 }),
 	image: varchar("image", { length: 255 }),
-	isActive: boolean("is_active").default(true).notNull(),
-	createdAt: timestamp("created_at").defaultNow().notNull(),
-	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+	is_active: boolean("is_active").default(true).notNull(),
+	created_at: timestamp("created_at").defaultNow().notNull(),
+	updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export type OrganizationSchemaInsertType = typeof organizations.$inferInsert;
