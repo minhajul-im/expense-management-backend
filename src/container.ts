@@ -14,12 +14,17 @@ import { OrganizationRepository } from "./modules/organization/OrganizationRepos
 import { OrganizationService } from "./modules/organization/OrganizationService";
 import { OrganizationController } from "./modules/organization/OrganizationController";
 import { createOrganizationRouter } from "./modules/organization/organization.routes";
+import { BudgetRepository } from "./modules/budget/BudgetRepository";
+import { BudgetService } from "./modules/budget/BudgetService";
+import { BudgetController } from "./modules/budget/BudgetController";
+import { createBudgetRouter } from "./modules/budget/budget.routes";
 
 export interface IContainer {
 	authRouter: ReturnType<typeof createAuthRouter>;
 	healthRouter: ReturnType<typeof createHealthRouter>;
 	categoryRouter: ReturnType<typeof createCategoryRouter>;
-	organizationRouter: ReturnType<typeof createCategoryRouter>;
+	organizationRouter: ReturnType<typeof createOrganizationRouter>;
+	budgetRouter: ReturnType<typeof createBudgetRouter>;
 }
 
 export function createContainer(dbClient: DbClient): IContainer {
@@ -48,10 +53,21 @@ export function createContainer(dbClient: DbClient): IContainer {
 	const categoryController = new CategoryController(categoryService, categoryRepository);
 	const categoryRouter = createCategoryRouter(categoryController, organizationRepository);
 
+	// BUDGET CLASS
+	const budgetRepository = new BudgetRepository();
+	const budgetService = new BudgetService();
+	const budgetController = new BudgetController(
+		budgetService,
+		budgetRepository,
+		categoryRepository
+	);
+	const budgetRouter = createBudgetRouter(budgetController, organizationRepository);
+
 	return {
 		authRouter,
 		healthRouter,
 		categoryRouter,
 		organizationRouter,
+		budgetRouter,
 	};
 }
