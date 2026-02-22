@@ -1,9 +1,10 @@
 import { handleZodError } from "../../core/errors/zodHelper";
+import { sanitizeObjectFn } from "../../core/utils/sanitize.object";
 import {
 	CreateCategoryInput,
 	UpdateCategoryInput,
-	createCategorySchema,
-	updateCategorySchema,
+	createCategoryInput,
+	updateCategoryInput,
 } from "./category.validator";
 
 export interface ICategoryService {
@@ -13,18 +14,18 @@ export interface ICategoryService {
 
 export class CategoryService implements ICategoryService {
 	public createValidator(input: any): CreateCategoryInput {
-		const data = createCategorySchema.safeParse(input);
+		const data = createCategoryInput.safeParse(input);
 		if (!data.success) {
 			throw handleZodError(data.error);
 		}
 		return data.data;
 	}
 
-	public updateValidator(input: any): UpdateCategoryInput {
-		const data = updateCategorySchema.safeParse(input);
+	public updateValidator(input: any): any {
+		const data = updateCategoryInput.safeParse(input);
 		if (!data.success) {
 			throw handleZodError(data.error);
 		}
-		return data.data;
+		return sanitizeObjectFn(data.data);
 	}
 }
