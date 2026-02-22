@@ -18,6 +18,7 @@ A clean, production-grade REST API for an expense management application built w
 ## 📁 Folder Structure
 
 ```
+drizzle/
 src/
 ├── __tests__/
 │   ├── setup.ts
