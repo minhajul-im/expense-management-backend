@@ -9,8 +9,8 @@ export const budgets = pgTable("budgets", {
 	amount: decimal("amount").notNull(),
 	year: integer("year").notNull(),
 	limit_type: LIMIT_TYPE_ENUM("limit_type").default("normal"),
-	createdAt: timestamp("created_at").defaultNow().notNull(),
-	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+	created_at: timestamp("created_at").defaultNow().notNull(),
+	updated_at: timestamp("updated_at").defaultNow().notNull(),
 	organization_id: integer("organization_id")
 		.notNull()
 		.references(() => organizations.id, {

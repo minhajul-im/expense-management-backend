@@ -41,7 +41,7 @@ export class BudgetController {
 		const category = await this.categoryRepository.findById(orgId, input?.category_id);
 
 		if (!category) throw new NotFoundError("Category is not found");
-		if (!category?.isActive) throw new ConflictError("Category is not active");
+		if (!category?.is_active) throw new ConflictError("Category is not active");
 
 		const hasBudget = await this.repository.findByCategoryId(orgId, input?.category_id);
 		if (hasBudget) throw new ConflictError("Budget already exists");

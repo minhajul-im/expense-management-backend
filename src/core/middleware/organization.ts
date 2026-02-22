@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors/AppError";
 import { IOrganizationRepository } from "../../modules/organization/OrganizationRepository";
 
 export const organizationMiddleware = (organizationRepo: IOrganizationRepository) => {
-	return async function (req: Request, res: Response, next: NextFunction) {
+	return async function (req: Request, _res: Response, next: NextFunction) {
 		const orgUsername = req.headers?.username;
 		if (!orgUsername) {
 			return next(new NotFoundError("Organization username required!"));

@@ -4,7 +4,7 @@ import {
 	UpdateCategoryInput,
 	createCategorySchema,
 	updateCategorySchema,
-} from "./category.schema";
+} from "./category.validator";
 
 export interface ICategoryService {
 	createValidator(input: any): CreateCategoryInput;

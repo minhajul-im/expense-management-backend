@@ -1,6 +1,6 @@
 import { handleZodError } from "../../core/errors/zodHelper";
 import { sanitizeObjectFn } from "../../core/utils/sanitize.object";
-import { createBudgetInput, CreateBudgetInputType, updateBudgetInput } from "./budget.schema";
+import { createBudgetInput, CreateBudgetInputType, updateBudgetInput } from "./budget.validator";
 
 export interface IBudgetService {
 	createValidator(input: any): any;
