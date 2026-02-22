@@ -18,25 +18,31 @@ import { BudgetRepository } from "./modules/budget/BudgetRepository";
 import { BudgetService } from "./modules/budget/BudgetService";
 import { BudgetController } from "./modules/budget/BudgetController";
 import { createBudgetRouter } from "./modules/budget/budget.routes";
+import { ExpenseRepository } from "./modules/expense/ExpenseRepository";
+import { ExpenseService } from "./modules/expense/ExpenseService";
+import { ExpenseController } from "./modules/expense/ExpenseController";
+import { createExpenseRouter } from "./modules/expense/expense.routes";
 
 export interface IContainer {
-	authRouter: ReturnType<typeof createAuthRouter>;
 	healthRouter: ReturnType<typeof createHealthRouter>;
+	authRouter: ReturnType<typeof createAuthRouter>;
 	categoryRouter: ReturnType<typeof createCategoryRouter>;
 	organizationRouter: ReturnType<typeof createOrganizationRouter>;
 	budgetRouter: ReturnType<typeof createBudgetRouter>;
+	expenseRouter: ReturnType<typeof createExpenseRouter>;
 }
 
 export function createContainer(dbClient: DbClient): IContainer {
-	const userRepository = new UserRepository(dbClient);
-	const authService = new AuthService(userRepository);
-	const authController = new AuthController(authService);
-	const authRouter = createAuthRouter(authController);
-
 	// HEALTH CLASS
 	const healthRepository = new HealthRepository(dbClient);
 	const healthController = new HealthController(healthRepository);
 	const healthRouter = createHealthRouter(healthController);
+
+	// AUTH CLASS
+	const userRepository = new UserRepository(dbClient);
+	const authService = new AuthService(userRepository);
+	const authController = new AuthController(authService);
+	const authRouter = createAuthRouter(authController);
 
 	// ORGANIZATION CLASS
 	const organizationRepository = new OrganizationRepository();
@@ -63,11 +69,22 @@ export function createContainer(dbClient: DbClient): IContainer {
 	);
 	const budgetRouter = createBudgetRouter(budgetController, organizationRepository);
 
+	// EXPENSE CLASS
+	const expenseRepository = new ExpenseRepository();
+	const expenseService = new ExpenseService();
+	const expenseController = new ExpenseController(
+		expenseService,
+		expenseRepository,
+		categoryRepository
+	);
+	const expenseRouter = createExpenseRouter(expenseController, organizationRepository);
+
 	return {
 		authRouter,
 		healthRouter,
 		categoryRouter,
 		organizationRouter,
 		budgetRouter,
+		expenseRouter,
 	};
 }

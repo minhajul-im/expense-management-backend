@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { organizations } from "./organization.table";
 import { categories } from "./category.table";
 import { budgets } from "./budget.table";
+import { expenses } from "./expense.table";
 
 export const organizationsRelations = relations(organizations, ({ many }) => ({
 	categories: many(categories),
@@ -23,6 +24,17 @@ export const budgetsRelations = relations(budgets, ({ one }) => ({
 	}),
 	category: one(categories, {
 		fields: [budgets.category_id],
+		references: [categories.id],
+	}),
+}));
+
+export const expensesRelations = relations(expenses, ({ one }) => ({
+	organization: one(organizations, {
+		fields: [expenses.organization_id],
+		references: [organizations.id],
+	}),
+	category: one(categories, {
+		fields: [expenses.category_id],
 		references: [categories.id],
 	}),
 }));
