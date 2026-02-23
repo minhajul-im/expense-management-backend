@@ -59,6 +59,6 @@ export class CategoryController {
 		const id = getParamsIdNumber(req, "Invalid category ID");
 		await this.hasCategory(id, orgId);
 		await this.repository.delete(orgId, id);
-		ResponseUtil.sendDelete(res, null, "Category deleted successfully");
+		ResponseUtil.sendDelete(res, "Category deleted successfully");
 	});
 }

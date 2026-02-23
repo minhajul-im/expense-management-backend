@@ -2,7 +2,12 @@ import { Request, RequestHandler, Response } from "express";
 import { asyncHandler } from "../../core/middleware/asyncHandler";
 import { ResponseUtil } from "../../core/success/SuccessResponse";
 import { NotFoundError } from "../../core/errors/AppError";
-import { getOrgIdFromReq, getParamsIdNumber } from "../../core/utils/helper";
+import {
+	buildPaginationMeta,
+	getOrgIdFromReq,
+	getParamsIdNumber,
+	getPaginationParams,
+} from "../../core/utils/helper";
 import { IExpenseService } from "./ExpenseService";
 import { IExpenseRepository } from "./ExpenseRepository";
 import { ICategoryRepository } from "../category/CategoryRepository";
@@ -30,8 +35,18 @@ export class ExpenseController {
 
 	public getAll: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const orgId = getOrgIdFromReq(req);
-		const result = await this.repository.getAll(orgId);
-		ResponseUtil.sendList(res, result, "Expenses retrieved successfully");
+		const pagination = getPaginationParams(req.query);
+		const { items, totalItems } = await this.repository.getAll(orgId, pagination);
+		const meta = buildPaginationMeta({ ...pagination, totalItems });
+
+		ResponseUtil.sendCustom(
+			res,
+			{
+				expenses: items,
+				meta,
+			},
+			"Expenses retrieved successfully"
+		);
 	});
 
 	public getById: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
@@ -67,6 +82,6 @@ export class ExpenseController {
 		const id = getParamsIdNumber(req, "Invalid expense ID");
 		await this.getExpense(req);
 		await this.repository.delete(orgId, id);
-		ResponseUtil.sendDelete(res, null, "Expense deleted successfully");
+		ResponseUtil.sendDelete(res, "Expense deleted successfully");
 	});
 }

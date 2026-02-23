@@ -1,10 +1,16 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { drizzleDb } from "../../config/Database";
 import { expenses, ExpenseSchemaType } from "../../schema/drizzle/expense.table";
 import { UpdateExpenseInput } from "./expense.validator";
+import { PaginationParamsType } from "../../core/types";
+
+export interface PaginatedResult<T> {
+	items: T[];
+	totalItems: number;
+}
 
 export interface IExpenseRepository {
-	getAll(orgId: number): Promise<any | null>;
+	getAll(orgId: number, pagination: PaginationParamsType): Promise<PaginatedResult<any>>;
 	create(input: ExpenseSchemaType): Promise<any | null>;
 	update(orgId: number, id: number, input: UpdateExpenseInput): Promise<any | null>;
 	findById(orgId: number, id: number): Promise<any | null>;
@@ -12,8 +18,32 @@ export interface IExpenseRepository {
 }
 
 export class ExpenseRepository implements IExpenseRepository {
-	public async getAll(orgId: number) {
-		return await drizzleDb.select().from(expenses).where(eq(expenses.organization_id, orgId));
+	public async getAll(
+		orgId: number,
+		pagination: PaginationParamsType
+	): Promise<PaginatedResult<any>> {
+		const { page, limit } = pagination;
+		const offset = (page - 1) * limit;
+
+		const [items, countResult] = await Promise.all([
+			drizzleDb
+				.select()
+				.from(expenses)
+				.where(eq(expenses.organization_id, orgId))
+				.limit(limit)
+				.offset(offset),
+			drizzleDb
+				.select({ count: sql<number>`count(*)`.mapWith(Number) })
+				.from(expenses)
+				.where(eq(expenses.organization_id, orgId)),
+		]);
+
+		const totalItems = countResult[0]?.count ?? 0;
+
+		return {
+			items,
+			totalItems,
+		};
 	}
 
 	public async create(input: ExpenseSchemaType) {

@@ -52,8 +52,8 @@ export class OrganizationController {
 	public delete: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
 		const id = getParamsIdNumber(req, "Invalid organization ID");
 		await this.hasOrganization(id);
-		const result = await this.repository.delete(id);
-		ResponseUtil.sendDelete(res, result, "Organization deleted successfully");
+		await this.repository.delete(id);
+		ResponseUtil.sendDelete(res, "Organization deleted successfully");
 	});
 
 	private async hasOrganization(id: number) {

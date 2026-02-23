@@ -18,8 +18,8 @@ export const createBudgetInput = z.object({
 		.number()
 		.int("Year must be an integer")
 		.positive("Year must be positive")
-		.refine((val) => val >= new Date().getFullYear(), {
-			message: "Year cannot be in the past",
+		.refine((val) => val === new Date().getFullYear(), {
+			message: "Year must be the current year",
 		}),
 	limit_type: LIMIT_TYPE_ENUM.default(LIMIT_TYPE.NORMAL).optional(),
 });
