@@ -85,7 +85,6 @@ export class ResponseUtil {
 
 	static sendDelete<T>(
 		res: Response,
-		data: T | null = null,
 		message: string = "Deleted successfully",
 		statusCode: number = 200
 	): Response {

@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { drizzleDb } from "../../config/Database";
 import { CategorySchemaType, categories } from "../../schema/drizzle/category.table";
 import { UpdateCategoryInput } from "./category.validator";
@@ -47,11 +47,15 @@ export class CategoryRepository implements ICategoryRepository {
 		const result = await drizzleDb
 			.select()
 			.from(categories)
-			.where(and(eq(categories.name, name), eq(categories.organization_id, orgId)))
+			.where(
+				and(
+					eq(sql`lower(${categories.name})`, name.toLowerCase()),
+					eq(categories.organization_id, orgId)
+				)
+			)
 			.limit(1);
 		return result[0];
 	}
-
 	public async delete(orgId: number, id: number) {
 		const result = await drizzleDb
 			.delete(categories)

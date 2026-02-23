@@ -67,6 +67,6 @@ export class ExpenseController {
 		const id = getParamsIdNumber(req, "Invalid expense ID");
 		await this.getExpense(req);
 		await this.repository.delete(orgId, id);
-		ResponseUtil.sendDelete(res, null, "Expense deleted successfully");
+		ResponseUtil.sendDelete(res, "Expense deleted successfully");
 	});
 }

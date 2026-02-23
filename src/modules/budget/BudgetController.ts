@@ -68,6 +68,6 @@ export class BudgetController {
 		await this.findOne(orgId, id);
 		await this.repository.delete(orgId, id);
 
-		ResponseUtil.sendDelete(res, null, "Budget deleted successfully");
+		ResponseUtil.sendDelete(res, "Budget deleted successfully");
 	});
 }
