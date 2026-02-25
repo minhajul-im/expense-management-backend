@@ -1,7 +1,6 @@
 import { DbClient } from "./config/Database";
 import { AuthController } from "./modules/auth/AuthController";
 import { AuthService } from "./modules/auth/AuthService";
-import { UserRepository } from "./modules/auth/UserRepository";
 import { createAuthRouter } from "./modules/auth/auth.routes";
 import { HealthController } from "./modules/health/HealthController";
 import { HealthRepository } from "./modules/health/HealthRepository";
@@ -22,6 +21,9 @@ import { ExpenseRepository } from "./modules/expense/ExpenseRepository";
 import { ExpenseService } from "./modules/expense/ExpenseService";
 import { ExpenseController } from "./modules/expense/ExpenseController";
 import { createExpenseRouter } from "./modules/expense/expense.routes";
+import { UserRepository } from "./modules/user/UserRepository";
+import { createUserRouter } from "./modules/user/user.routes";
+import { UserController } from "./modules/user/UserController";
 
 export interface IContainer {
 	healthRouter: ReturnType<typeof createHealthRouter>;
@@ -30,6 +32,7 @@ export interface IContainer {
 	organizationRouter: ReturnType<typeof createOrganizationRouter>;
 	budgetRouter: ReturnType<typeof createBudgetRouter>;
 	expenseRouter: ReturnType<typeof createExpenseRouter>;
+	userRouter: ReturnType<typeof createUserRouter>;
 }
 
 export function createContainer(dbClient: DbClient): IContainer {
@@ -39,10 +42,16 @@ export function createContainer(dbClient: DbClient): IContainer {
 	const healthRouter = createHealthRouter(healthController);
 
 	// AUTH CLASS
-	const userRepository = new UserRepository(dbClient);
+	const userRepository = new UserRepository();
 	const authService = new AuthService(userRepository);
 	const authController = new AuthController(authService);
 	const authRouter = createAuthRouter(authController);
+
+	// USER CLASS
+
+	const userService = new AuthService(userRepository);
+	const userController = new UserController(userRepository);
+	const userRouter = createUserRouter(userController, authService);
 
 	// ORGANIZATION CLASS
 	const organizationRepository = new OrganizationRepository();
@@ -81,6 +90,7 @@ export function createContainer(dbClient: DbClient): IContainer {
 
 	return {
 		authRouter,
+		userRouter,
 		healthRouter,
 		categoryRouter,
 		organizationRouter,
