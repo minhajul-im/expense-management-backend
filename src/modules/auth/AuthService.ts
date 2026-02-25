@@ -1,64 +1,111 @@
-import { IUserRepository } from "./UserRepository";
-import { RegisterInput, LoginInput, AuthResponse } from "./user.dto";
-import { UnauthorizedError, ConflictError } from "../../core/errors/AppError";
-import { hash } from "bcryptjs";
-import { sign } from "jsonwebtoken";
-import { env } from "../../config/env";
+import { UnauthorizedError, ConflictError, NotFoundError } from "../../core/errors/AppError";
+import { compare, hash } from "bcryptjs";
+import { sign, verify } from "jsonwebtoken";
+import { IUserRepository } from "../user/UserRepository";
+import { USER_ROLE } from "../user/user.validator";
+import { handleZodError } from "../../core/errors/zodHelper";
+import { authConfig } from "../../config/auth.config";
+import { signinInput, SigninInput, SignupInput, signupInput } from "./auth.validator";
+import { UserType } from "../../core/types";
+
+export interface IAuthService {
+	signup(input: SignupInput): Promise<UserType>;
+	signin(input: SigninInput): Promise<{ token: string; user: UserType }>;
+	verifyToken(token: string): Promise<UserType>;
+}
 
 export class AuthService {
-	constructor(private userRepository: IUserRepository) {}
+	constructor(private repository: IUserRepository) {}
 
-	async register(input: RegisterInput): Promise<AuthResponse> {
-		const existingUser = await this.userRepository.findByEmail(input.email);
-		if (existingUser) {
+	public async signup(input: SignupInput): Promise<any> {
+		const data = signupInput.safeParse(input);
+		if (!data.success) {
+			throw handleZodError(data.error);
+		}
+
+		const existing = await this.repository.findByEmail(input?.email);
+		if (existing) {
 			throw new ConflictError("User with this email already exists");
 		}
 
-		// Hash password
-		const hashedPassword = await hash(input.password, 12);
+		const hashedPassword = await hash(input.password, authConfig.bcrypt.saltRounds);
 		const userInput = {
-			...input,
+			...data?.data,
 			password: hashedPassword,
+			roles: data.data.roles || [USER_ROLE.MANAGER],
 		};
 
-		return this.userRepository.create(userInput);
+		const user = await this.repository.create(userInput);
+		return this.formatUser(user);
 	}
 
-	async login(input: LoginInput): Promise<{ user: AuthResponse; token: string }> {
-		const user = await this.userRepository.findByEmail(input.email);
-		if (!user) {
-			throw new UnauthorizedError("Invalid credentials");
+	public async signin(input: SigninInput): Promise<any> {
+		const data = signinInput.safeParse(input);
+		if (!data.success) {
+			throw handleZodError(data.error);
 		}
 
-		// TODO: Verify password with bcrypt
-		// const isValidPassword = await compare(input.password, user.password);
-		// if (!isValidPassword) {
-		//   throw new UnauthorizedError("Invalid credentials");
-		// }
+		const user = await this.verifyUser(data?.data?.email);
 
-		// For now, just check if password matches (temporary)
-		if (input.password !== (user as any).password) {
-			throw new UnauthorizedError("Invalid credentials");
+		const isValidPass = await compare(input?.password, user?.password);
+		if (!isValidPass) {
+			throw new UnauthorizedError("Invalid password");
 		}
 
-		// Generate JWT token
-		const token = sign({ userId: user.id }, env.JWT_SECRET, {
-			expiresIn: env.JWT_EXPIRES_IN,
-		} as any);
+		const token = this.generateToken(user?.id);
 
-		// Remove password from response
-		const { password: _, ...userWithoutPassword } = user as any;
 		return {
-			user: userWithoutPassword,
+			user: this.formatUser(user),
 			token,
 		};
 	}
 
-	async getProfile(userId: number): Promise<AuthResponse> {
-		const user = await this.userRepository.findById(userId);
+	private async verifyUser(email: string) {
+		const user = await this.repository.findByEmail(email);
+		if (!user) {
+			throw new NotFoundError("User not found with this email");
+		}
+
+		if (!user.is_active) {
+			throw new UnauthorizedError("User is inactive");
+		}
+		return user;
+	}
+
+	private generateToken(userID: number) {
+		const token = sign({ userId: String(userID) }, authConfig.jwt.secret, {
+			expiresIn: authConfig.jwt.expiresIn,
+		} as any);
+
+		return token;
+	}
+
+	public async verifyToken(token: string): Promise<UserType> {
+		const decoded = verify(token, authConfig.jwt.secret) as {
+			userId: number;
+		};
+
+		if (!decoded?.userId) {
+			throw new UnauthorizedError("Verification failed");
+		}
+
+		const user = await this.repository.findById(decoded.userId);
 		if (!user) {
 			throw new UnauthorizedError("User not found");
 		}
-		return user;
+
+		return this.formatUser(user);
+	}
+
+	private formatUser(user: any) {
+		return {
+			id: user?.id,
+			full_name: user?.full_name,
+			email: user?.email,
+			roles: user?.roles,
+			image: user?.image,
+			is_active: user?.is_active,
+			created_at: user?.created_at,
+		};
 	}
 }

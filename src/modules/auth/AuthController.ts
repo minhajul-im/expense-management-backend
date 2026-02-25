@@ -1,35 +1,22 @@
 import { Request, Response } from "express";
-import { AuthService } from "./AuthService";
-import { registerSchema, loginSchema } from "./user.dto";
+import { IAuthService } from "./AuthService";
 import { asyncHandler } from "../../core/middleware/asyncHandler";
-import { UnauthorizedError } from "../../core/errors/AppError";
 import { ResponseUtil } from "../../core/success/SuccessResponse";
 
 export class AuthController {
-	constructor(private authService: AuthService) {}
+	constructor(private service: IAuthService) {}
 
-	register = asyncHandler(async (req: Request, res: Response) => {
-		const validatedData = registerSchema.parse(req.body);
-		const user = await this.authService.register(validatedData);
-
-		ResponseUtil.sendCreate(res, user, "User registered successfully");
+	public signup = asyncHandler(async (req: Request, res: Response) => {
+		const result = await this.service.signup(req.body);
+		ResponseUtil.sendCreate(res, result, "User signup successfully");
 	});
 
-	login = asyncHandler(async (req: Request, res: Response) => {
-		const validatedData = loginSchema.parse(req.body);
-		const { user, token } = await this.authService.login(validatedData);
-
-		ResponseUtil.sendOk(res, { user, token }, "Login successful");
+	public signin = asyncHandler(async (req: Request, res: Response) => {
+		const result = await this.service.signin(req.body);
+		ResponseUtil.sendOk(res, result, "User signin successfully");
 	});
 
-	getProfile = asyncHandler(async (req: Request, res: Response) => {
-		const userId = (req as any).userId;
-		if (!userId) {
-			throw new UnauthorizedError("User not authenticated");
-		}
-
-		const user = await this.authService.getProfile(userId);
-
-		ResponseUtil.sendOk(res, user, "Profile retrieved successfully");
+	public signout = asyncHandler(async (req: Request, res: Response) => {
+		ResponseUtil.sendOk(res, null, "User signout successfully");
 	});
 }

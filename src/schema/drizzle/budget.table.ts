@@ -1,6 +1,7 @@
 import { pgTable, serial, integer, timestamp, decimal, pgEnum } from "drizzle-orm/pg-core";
 import { organizations } from "./organization.table";
 import { categories } from "./category.table";
+import { users } from "./user.table";
 
 export const LIMIT_TYPE_ENUM = pgEnum("limit_type", ["normal", "soft", "hard"]);
 
@@ -22,5 +23,8 @@ export const budgets = pgTable("budgets", {
 		.references(() => categories.id, {
 			onDelete: "cascade",
 		}),
+	user_id: integer("user_id")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
 });
 export type BudgetSchemaType = typeof budgets.$inferInsert;
